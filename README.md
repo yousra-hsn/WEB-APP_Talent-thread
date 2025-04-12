@@ -104,7 +104,7 @@ Plusieurs volets de sécurité ont été mis en place, les vulnérabilités sont
 
 ## Contribution
 
-Projet académique réalisé dans le cadre de l'UV **AI16**. Juin 2024
+Projet académique réalisé dans le cadre de l'UV AI16 à l'Université de Technologie de Compiègne. **Juin 2024**
 
 2 membres : 
 - **Imene Benyagoub**
