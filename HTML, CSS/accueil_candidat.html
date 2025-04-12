@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accueil Candidat</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="sidebar" class="sidebar">
+        <!-- Icône pour fermer le menu hamburger -->
+        <div class="close-icon">
+          <span>×</span>
+        </div>
+      
+        <!-- Premier groupe de liens -->
+        <div class="menu-section">
+          <h3>Que voulez-vous faire ?</h3>
+          <a href="accueil_candidat.html">Dashboard</a>
+          <a href="offres.html">Offres disponibles</a>
+          <a href="mes_candidatures.html">Mes candidatures</a>
+        </div>
+      
+        <!-- Deuxième groupe de liens -->
+        <div class="menu-section">
+          <a href="profil.html">Mon profil</a>
+          <a href="logout">Déconnexion</a>
+        </div>
+      
+        <!-- Troisième groupe de liens -->
+        <div class="menu-section">
+          <a href="aide.html">Aide</a>
+        </div>
+      </div>
+      
+
+<!-- Début de la barre de navigation en haut -->
+<div class="navbar">
+  <div class="menu-icon">
+    <!-- Icone de menu (hamburger icon) -->
+    <span>☰</span>
+  </div>
+  <div class="search-bar">
+    <input type="search" placeholder="Search">
+    <button type="submit">🔍</button>
+  </div>
+  <div class="account-icon">
+    <!-- Icone du compte utilisateur -->
+    <span>👤</span>
+  </div>
+</div>
+<!-- Fin de la barre de navigation en haut -->
+
+<!-- Contenu principal -->
+<div class="container">
+  <h1>Bienvenue [prénom] !</h1>
+  <!-- Contenu des offres, etc. -->
+</div>
+
+<!-- Lien pour devenir recruteur -->
+<div class="become-recruiter">
+  <a href="devenir_recruteur.html">Devenez recruteur</a>
+</div>
+
+<!-- Script JavaScript pour le menu hamburger -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var menuIcon = document.querySelector('.menu-icon');
+        var sidebar = document.getElementById('sidebar');
+        var closeIcon = document.querySelector('.close-icon');
+    
+        menuIcon.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+        });
+
+        closeIcon.addEventListener('click', function() {
+        sidebar.classList.remove('active');
+        });
+    });
+
+</script>
+
+</body>
+</html>

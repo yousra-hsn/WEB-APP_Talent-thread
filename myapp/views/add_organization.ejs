@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add your organisation</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+      /* Style for dropdown menu */
+      .dropdown-menu {
+          display: none;
+          position: fixed;
+          top: 48px; /* Adjust based on header height */
+          left: 0;
+          width: 25%; /* Matches the width of Offre 1 (w-1/4) */
+          height: calc(100% - 60px); /* Take the full height minus header height */
+          color: white;
+          z-index: 10;
+          overflow-y: auto; /* Enable scrolling if content is too tall */
+      }
+      .dropdown-menu.active {
+          display: block;
+      }
+      .highlight {
+          background-color: yellow;
+      }
+  </style>
+</head>
+<body class="bg-white relative">
+
+    <!-- Header -->
+    <header class="w-full p-3 bg-black shadow-md fixed top-0 left-0 right-0">
+      <div class="container mx-auto flex items-center justify-between">
+          <!-- Bouton de menu déroulant -->
+          <button id="menu-button" class="text-white focus:outline-none">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+          </button>
+      </div>
+  </header>
+
+  <!-- Dropdown menu -->
+  <div id="dropdown-menu" class="dropdown-menu p-4 bg-gray-900 border-t border-white"> 
+      <h2 class="text-xl font-bold mb-4">Menu</h2>
+      <!-- First section of links -->
+      <div class="mb-6">
+        <div class="flex items-center mb-2">
+            <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18v18H3z"></path>
+            </svg>
+            <a href="home" class="text-white">Dashboard</a>
+        </div>
+      </div>
+
+      <!-- Second section of links -->
+      <div class="mb-6">
+          <div class="flex items-center mb-2">
+              <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 12h18M3 18h18"></path>
+              </svg>
+              <a href="job_ads" class="text-white">Job Ads</a>
+          </div>
+          <div class="flex items-center mb-2">
+              <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H8m0 0l4-4m-4 4l4 4"></path>
+              </svg>
+              <a href="applications" class="text-white">My Applications</a>
+          </div>
+      </div>
+
+      <!-- Third section of links -->
+      <div class="mb-6">
+          <div class="flex items-center mb-2">
+              <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+              <a href="/logout" class="text-white">Log Out</a>
+          </div>
+      </div>
+  </div>
+
+    <!-- Main Content -->
+    <div class="flex items-center justify-center h-screen mt-40 pt-16">
+        <div class="w-full max-w-xs">
+            <h1 class="text-3xl font-bold mb-4 text-center">Add organisation</h1>
+            <p class="text-lg mb-2 text-center">Fill in the details</p>
+
+            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" id="addOrganisation" action="/candidate/add_organization" method="POST">
+              <!-- Section 1 -->
+              <div class="mb-4">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="siren">
+                        SIREN
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="siren" name="siren" type="text" placeholder="111222333">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                        Name of the organisation
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="name" name="name" type="text" placeholder="Company X">
+                </div>
+                <div class="mb-4" id="type-container">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="type">
+                        Type of your organization
+                    </label>
+                    <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="type" name="type">
+                        <% types.forEach(type => { %>
+                            <option value="<%= type.type %>"><%= type.type %></option>
+                        <% }); %>
+                    </select>
+                </div>
+              </div>
+
+              <!-- Section 2 -->
+              <div class="mb-4">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="number">
+                        Street number
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="number" name="number" type="text" placeholder="57">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="street">
+                        Street name
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="street" name="street" type="text" placeholder="Main St">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="city">
+                        City
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="city" name="city" type="text" placeholder="Paris">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="country">
+                        Country
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="country" name="country" type="text" placeholder="France">
+                </div>
+              </div>
+
+              <!-- Section 3 -->
+              <div class="flex items-center justify-center">
+                  <button class="bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                      Add organisation
+                  </button>
+              </div>
+          </form>
+               
+
+        </div>
+    </div>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+
+    <script>
+      document.getElementById('menu-button').addEventListener('click', function() {
+          document.getElementById('dropdown-menu').classList.toggle('active');
+      });
+    </script>
+
+</body>
+</html>

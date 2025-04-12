@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Style for dropdown menu */
+        .dropdown-menu {
+            display: none;
+            position: fixed;
+            top: 48px; /* Adjust based on header height */
+            left: 0;
+            width: 25%; /* Matches the width of Offre 1 (w-1/4) */
+            height: calc(100% - 60px); /* Take the full height minus header height */
+            color: white;
+            z-index: 10;
+            overflow-y: auto; /* Enable scrolling if content is too tall */
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-white relative">
+
+    <!-- Header -->
+    <header class="w-full p-3 bg-black shadow-md fixed top-0 left-0 right-0">
+        <div class="container mx-auto flex items-center justify-between">
+            <!-- Bouton de menu déroulant -->
+            <button id="menu-button" class="text-white focus:outline-none">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
+            <!-- Barre de recherche -->
+            <div class="flex items-center space-x-4">
+                <input type="text" class="px-3 py-2 rounded-md text-black" placeholder="Recherche...">
+                <!-- Pictogramme d'utilisateur -->
+                <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A7.968 7.968 0 0112 15c2.131 0 4.09.84 5.879 2.804M15 12a3 3 0 11-6 0 3 3 0 016 0zM12 20c-5.523 0-10-4.477-10-10S6.477 0 12 0s10 4.477 10 10-4.477 10-10 10z"></path>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+      <!-- Dropdown menu -->
+      <div id="dropdown-menu" class="dropdown-menu p-4 bg-gray-900 border-t border-white"> 
+        <h2 class="text-xl font-bold mb-4">What do you want to do?</h2>
+        <!-- First section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18v18H3z"></path>
+                </svg>
+                <a href="../mng_users" class="text-white">Users</a>
+            </div>
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 12h18M3 18h18"></path>
+                </svg>
+                <a href="../mng_org" class="text-white">Organizations</a>
+            </div>
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H8m0 0l4-4m-4 4l4 4"></path>
+                </svg>
+                <a href="#" class="text-white">Recruiters</a>
+            </div>
+        </div>
+        <!-- Second section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"></path>
+                </svg>
+                <a href="#" class="text-white">My Profile</a>
+            </div>
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h4m-4 4h4m-9 8h14v-2H5v2zm0-6h14v-2H5v2zm0-6v2h14V4H5z"></path>
+                </svg>
+                <a href="#" class="text-white">Settings</a>
+            </div>
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                <a href="#" class="text-white">Logout</a>
+            </div>
+        </div>
+        <!-- Help button -->
+        <div class="flex items-center">
+            <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.257 3.099c.765-1.36 2.77-1.36 3.535 0l5.916 10.526c.764 1.36-.192 3.075-1.768 3.075H4.109c-1.576 0-2.532-1.716-1.768-3.075l5.916-10.526zM12 16v2m0 4h.01"></path>
+            </svg>
+            <a href="#" class="text-white">Help</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    Faire le main content tel qu'il affiche en gras/titre : 
+        "Voulez-vous supprimer l'uilisateur suivant? (pour chaque champ de la requete)
+        ChampX : "Valeur"
+
+    Bouton noir avec écrite blanche :Delete (type submit)
+    (tout mettre en anglais)
+
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    <script>
+        document.getElementById('menu-button').addEventListener('click', function() {
+            document.getElementById('dropdown-menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

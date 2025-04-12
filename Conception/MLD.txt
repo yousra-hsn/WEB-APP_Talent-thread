@@ -1,0 +1,38 @@
+--- Les attributs sont NULLABLE sauf mention contraire ---
+
+Adresse(#id_add : int, num : int, rue : varchar[75], ville : varchar[75], pays : varchar[75])
+
+Organisation(#siren : char[9], nom : varchar[50], type : enum('association','EURL','SARL','SASU','autre_orga'), siege_social : int)
+UNIQUE: nom
+UNIQUE: siege_social
+FK: siege_social REFERENCES Adresse(id_add)
+
+Utilisateur(#id_user : int, adresse_mail : varchar[50], mot_de_passe : varchar[100], nom : varchar[50], prenom : varchar[50], tel : char[10], date_creation : date, actif : bool, type : enum('admin','candidat','recruteur'), organisation : char[9])
+UNIQUE: adresse_mail
+NULLABLE : organisation
+FK: organisation REFERENCES Organisation(siren)
+NOT(organisation AND type != "recruteur")
+
+Ajout_Organisation(#siren : char[9], nom : varchar[50], type : enum('association','EURL','SARL','SASU','autre_orga'), num_ad : int, rue_ad : varchar[75], ville_ad : varchar[75], pays_ad : varchar[75], traitement : bool)
+
+Candidate(#id_candidat : int, #id_offre : int, date_candidature : date, infos_supp : varchar[100])
+FK: id_candidat REFERENCES Utilisateur(id_user) ON DELETE CASCADE
+FK: id_offre REFERENCES Offre(id_offre) ON DELETE CASCADE
+NULLABLE: infos_supp
+
+Demande_A_Rejoindre(#id_candidat : int, #id_organisation : char[9], date_demande : date, traitement : bool)
+FK: id_candidat REFERENCES Utilisateur(id_user) ON DELETE CASCADE
+FK: id_organisation REFERENCES Organisation(siren) ON DELETE CASCADE
+
+Fiche_de_poste(#id_fiche_de_poste : int, organisation : char[9], nom : varchar[75], statut_de_poste : enum('cadre','ETAM','autre_statut'), resp_hierarchique : varchar[50], rythme_heures : int, teletravail_jours : int, salaire_min : int, salaire_max : int, description_mission : varchar[1000], nombre_offres : int, adresse : int, date_fin_validite : date)
+FK: organisation REFERENCES Organisation(siren) ON DELETE CASCADE
+FK: adresse REFERENCES Adresse(id_add) ON DELETE CASCADE
+
+Offre(#id_offre : int, fiche_de_poste : int, etat : enum('non_publiee','publiee','expiree'), date_validite : date, description_pieces : varchar[500], nombre_piece_obligatoire : int, recruteur : int)
+FK: fiche_de_poste REFERENCES Fiche_de_poste(id_fiche_de_poste) ON DELETE CASCADE
+FK: recruteur REFERENCES Utilisateur(id_user) ON DELETE CASCADE
+
+Piece_jointe(#id_piece_jointe : int, path : varchar[100], id_offre : int, id_candidat : int)
+UNIQUE: path
+FK: (id_offre, id_candidat) REFERENCES Candidate(id_offre, id_candidat) ON DELETE CASCADE
+

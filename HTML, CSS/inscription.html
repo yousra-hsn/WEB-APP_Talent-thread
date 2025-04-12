@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Créer un nouveau compte</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="login.html" class="logo">
+          <!-- Insérez l'image de votre logo ici -->
+          <img src="TalentThrive_logo.png" alt="Logo de MonSite">
+        </a>
+      </nav>
+<div class="container">
+  <h1>Créer un nouveau compte</h1>
+  <form action="/inscription" method="POST">
+    <input type="text" name="nom" placeholder="Nom" required>
+    <input type="text" name="prenom" placeholder="Prénom" required>
+    <input type="email" name="email" placeholder="E-mail" required>
+    <input type="password" name="password" placeholder="Mot de passe" required>
+    <input type="text" name="tel" placeholder="Téléphone" required>
+    <button type="submit" class="button">S'inscrire</button>
+  </form>
+  <p>Vous êtes déjà inscrit? <a href="connexion.html">Connexion</a></p>
+</div>
+</body>
+</html>

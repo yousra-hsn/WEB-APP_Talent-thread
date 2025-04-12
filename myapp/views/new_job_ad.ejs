@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New job ad</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Style for dropdown menu */
+        .dropdown-menu {
+            display: none;
+            position: fixed;
+            top: 48px; /* Adjust based on header height */
+            left: 0;
+            width: 25%; /* Matches the width of Offre 1 (w-1/4) */
+            height: calc(100% - 60px); /* Take the full height minus header height */
+            color: white;
+            z-index: 10;
+            overflow-y: auto; /* Enable scrolling if content is too tall */
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-white relative">
+
+    <!-- Header -->
+    <header class="w-full p-3 bg-black shadow-md fixed top-0 left-0 right-0">
+        <div class="container mx-auto flex items-center justify-between">
+            <!-- Bouton de menu déroulant -->
+            <button id="menu-button" class="text-white focus:outline-none">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Dropdown menu -->
+    <div id="dropdown-menu" class="dropdown-menu p-4 bg-gray-900 border-t border-white"> 
+        <h2 class="text-xl font-bold mb-4">Menu</h2>
+        <!-- First section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"></path>
+                </svg>
+                <a href="../../recruiter/home" class="text-white">Home</a>
+            </div>
+        </div>
+
+        <!-- Second section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18v18H3z"></path>
+                </svg>
+                <a href="../job_ads" class="text-white">Job Ads</a>
+            </div>
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 12h18M3 18h18"></path>
+                </svg>
+                <a href="new" class="text-white">Add a Job Ad</a>
+            </div>
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H8m0 0l4-4m-4 4l4 4"></path>
+                </svg>
+                <a href="../../../candidate/home" class="text-white">Candidate Homepage</a>
+            </div>
+        </div>
+
+        <!-- Third section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                <a href="/logout" class="text-white">Log Out</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Add a space before the form -->
+      <div class="h-16 mt-12"></div>
+      <div class="flex items-center justify-center h-screen mt-64 pt-12">
+          <div class="w-full max-w-lg">
+              <h1 class="text-3xl font-bold mb-2 mt-64 text-center">New Job Offer</h1>
+
+              <div class="flex items-center justify-center mt-4 mb-4">
+                <a class="text-blue-500 hover:text-blue-700 font-bold" href="../job_description/new">
+                    Add a job description
+                </a>
+              </div>
+  
+              <% if (!fichesDePoste || fichesDePoste.length === 0) { %>
+                  <p class="text-red-500 text-center">No job descriptions available. Please create a job description first.</p>
+              <% } else { %>
+                  <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" id="addJobOffer" action="/recruiter/job_ads/new" method="POST" onsubmit=return validateForm()>
+                      <!-- Section 1: Fiche de Poste -->
+                      <p class="block text-black text-sm font-bold mb-2">Please select a job description</p>
+                      <div class="mb-4">
+                          <label class="block text-gray-700 text-sm font-bold mb-2" for="fiche_de_poste">
+                              Job Title
+                          </label>
+                          <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fiche_de_poste" name="fiche_de_poste" onchange="updateFicheDetails()">
+                              <% fichesDePoste.forEach(fiche => { %>
+                                  <option value="<%= fiche.id_fiche_de_poste %>"><%= fiche.nom %></option>
+                              <% }); %>
+                          </select>
+                      </div>
+                      <div id="ficheDePosteDetails" class="mb-4">
+                          <div class="mb-4">
+                              <label class="block text-gray-700 text-sm font-bold mb-2" for="statut_de_poste">
+                                  Job status
+                              </label>
+                              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="statut_de_poste" name="statut_de_poste" type="text" readonly>
+                          </div>
+                          <div class="mb-4">
+                              <label class="block text-gray-700 text-sm font-bold mb-2" for="resp_hierarchique">
+                                  Hierarchical Superior
+                              </label>
+                              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="resp_hierarchique" name="resp_hierarchique" type="text" readonly>
+                          </div>
+                          <div class="mb-4">
+                              <label class="block text-gray-700 text-sm font-bold mb-2" for="rythme_heures">
+                                  Work Rhythm (hours)
+                              </label>
+                              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="rythme_heures" name="rythme_heures" type="text" readonly>
+                          </div>
+                          <div class="mb-4">
+                              <label class="block text-gray-700 text-sm font-bold mb-2" for="teletravail_jours">
+                                  Remote Work (days)
+                              </label>
+                              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="teletravail_jours" name="teletravail_jours" type="text" readonly>
+                          </div>
+                          <div class="mb-4">
+                              <label class="block text-gray-700 text-sm font-bold mb-2" for="salaire_min">
+                                  Minimum Salary
+                              </label>
+                              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="salaire_min" name="salaire_min" type="text" readonly>
+                          </div>
+                          <div class="mb-4">
+                              <label class="block text-gray-700 text-sm font-bold mb-2" for="salaire_max">
+                                  Maximum Salary
+                              </label>
+                              <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="salaire_max" name="salaire_max" type="text" readonly>
+                          </div>
+                          <div class="mb-4">
+                              <label class="block text-gray-700 text-sm font-bold mb-2" for="description_mission">
+                                  Job Description
+                              </label>
+                              <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description_mission" name="description_mission" rows="4" readonly></textarea>
+                          </div>
+                      </div>
+  
+                      <!-- Section 2: Informations sur l'Offre -->
+                      <p class="block text-black text-sm font-bold mb-2">Please fill in the details of your job offer</p>
+                      <div class="mb-4">
+                          <label class="block text-gray-700 text-sm font-bold mb-2" for="etat">
+                              State
+                          </label>
+                          <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="etat" name="etat">
+                              <option value="publiee">Published</option>
+                              <option value="non_publiee">Not Published</option>
+                              <option value="expiree">Expired</option>
+                          </select>
+                      </div>
+                      <div class="mb-4">
+                          <label class="block text-gray-700 text-sm font-bold mb-2" for="date_validite">
+                              Validity Date
+                          </label>
+                          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date_validite" name="date_validite" type="date">
+                      </div>
+                      <div class="mb-4">
+                          <label class="block text-gray-700 text-sm font-bold mb-2" for="description_pieces">
+                              Required Attachments Description
+                          </label>
+                          <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description_pieces" name="description_pieces" rows="4"></textarea>
+                      </div>
+                      <div class="mb-4">
+                          <label class="block text-gray-700 text-sm font-bold mb-2" for="nombre_piece_obligatoire">
+                              Number of Required Attachments
+                          </label>
+                          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="nombre_piece_obligatoire" name="nombre_piece_obligatoire" type="number" min="0" max="10" value="0" pattern="\d*">
+                      </div>
+  
+                      <!-- Section 3: Selection du recruteur -->
+                      <p class="block text-black text-sm font-bold mb-2">Please select the recruiter</p>
+                      <div class="mb-4">
+                          <label class="block text-gray-700 text-sm font-bold mb-2" for="recruteur">
+                              Recruiter
+                          </label>
+                          <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="recruteur" name="recruteur">
+                              <% recruteurs.forEach(recruteur => { %>
+                                  <option value="<%= recruteur.id_user %>"><%= recruteur.prenom %> <%= recruteur.nom %> (<%= recruteur.adresse_mail %>)</option>
+                              <% }); %>
+                          </select>
+                      </div>
+  
+                      <!-- Section 4: Submit -->
+                      <div class="flex items-center justify-center">
+                          <button class="bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                              Add Job Offer
+                          </button>
+                      </div>
+                  </form>
+
+              <% } %>
+          </div>
+      </div>
+    </main>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    <script>
+
+        document.getElementById('menu-button').addEventListener('click', function() {
+            document.getElementById('dropdown-menu').classList.toggle('active');
+        })
+
+        const fichesDePoste = <%- JSON.stringify(fichesDePoste) %>;
+
+        function updateFicheDetails() {
+            const select = document.getElementById('fiche_de_poste');
+            const selectedFiche = fichesDePoste.find(fiche => fiche.id_fiche_de_poste == select.value);
+
+            if (selectedFiche) {
+                document.getElementById('statut_de_poste').value = selectedFiche.statut_de_poste;
+                document.getElementById('resp_hierarchique').value = selectedFiche.resp_hierarchique;
+                document.getElementById('rythme_heures').value = selectedFiche.rythme_heures;
+                document.getElementById('teletravail_jours').value = selectedFiche.teletravail_jours;
+                document.getElementById('salaire_min').value = selectedFiche.salaire_min;
+                document.getElementById('salaire_max').value = selectedFiche.salaire_max;
+                document.getElementById('description_mission').value = selectedFiche.description_mission;
+            }
+        }
+
+        // Initialize with the first fiche de poste
+        updateFicheDetails();
+
+        function validateForm() {
+        const fields = [
+            'fiche_de_poste',
+            'etat',
+            'date_validite',
+            'description_pieces',
+            'nombre_piece_obligatoire',
+            'recruteur'
+        ];
+
+        let valid = true;
+        fields.forEach(field => {
+            const value = document.getElementById(field).value;
+            if (!value) {
+                alert(`Please fill out the ${field.replace('_', ' ')} field.`);
+                valid = false;
+            }
+        });
+
+        return valid;
+      }
+
+    </script>
+</body>
+</html>

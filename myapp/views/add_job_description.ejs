@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New job ad</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Style for dropdown menu */
+        .dropdown-menu {
+            display: none;
+            position: fixed;
+            top: 48px; /* Adjust based on header height */
+            left: 0;
+            width: 25%; /* Matches the width of Offre 1 (w-1/4) */
+            height: calc(100% - 60px); /* Take the full height minus header height */
+            color: white;
+            z-index: 10;
+            overflow-y: auto; /* Enable scrolling if content is too tall */
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-white relative">
+
+    <!-- Header -->
+    <header class="w-full p-3 bg-black shadow-md fixed top-0 left-0 right-0">
+        <div class="container mx-auto flex items-center justify-between">
+            <!-- Bouton de menu déroulant -->
+            <button id="menu-button" class="text-white focus:outline-none">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Dropdown menu -->
+    <div id="dropdown-menu" class="dropdown-menu p-4 bg-gray-900 border-t border-white"> 
+        <h2 class="text-xl font-bold mb-4">Menu</h2>
+        <!-- First section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"></path>
+                </svg>
+                <a href="../../recruiter/home" class="text-white">Home</a>
+            </div>
+        </div>
+
+        <!-- Second section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18v18H3z"></path>
+                </svg>
+                <a href="../job_ads" class="text-white">Job ads</a>
+            </div>
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 12h18M3 18h18"></path>
+                </svg>
+                <a href="new" class="text-white">Add a job add</a>
+            </div>
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H8m0 0l4-4m-4 4l4 4"></path>
+                </svg>
+                <a href="../../../candidate/home" class="text-white">Candidate homepage</a>
+            </div>
+        </div>
+
+        <!-- Third section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                <a href="/logout" class="text-white">Log Out</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="h-16 mt-32"></div>
+        <div class="flex items-center justify-center h-screen mt-32 pt-12">
+            <div class="w-full max-w-lg">
+                <h1 class="text-3xl font-bold mb-2 mt-16 text-center">Add Job Description</h1>
+                <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" id="addJobDescription" action="/recruiter/job_description/new" method="POST" onsubmit="return validateForm()">
+                    <!-- Job Description Details -->
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="nom">
+                            Job Title
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="nom" name="nom" type="text" placeholder="Job Title" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="statut_de_poste">
+                            Job Status
+                        </label>
+                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="statut_de_poste" name="statut_de_poste" required>
+                            <option value="cadre">Cadre</option>
+                            <option value="ETAM">ETAM</option>
+                            <option value="autre_statut">Autre statut</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="resp_hierarchique">
+                            Hierarchical Superior
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="resp_hierarchique" name="resp_hierarchique" type="text" placeholder="Hierarchical Superior" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="rythme_heures">
+                            Work Rhythm (hours, max 40)
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="rythme_heures" name="rythme_heures" type="number" max="40" placeholder="Work Rhythm (hours)" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="teletravail_jours">
+                            Remote Work (days, max 5)
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="teletravail_jours" name="teletravail_jours" type="number" max="5" placeholder="Remote Work (days)" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="salaire_min">
+                            Minimum Salary
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="salaire_min" name="salaire_min" type="number" placeholder="Minimum Salary" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="salaire_max">
+                            Maximum Salary
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="salaire_max" name="salaire_max" type="number" placeholder="Maximum Salary" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="description_mission">
+                            Job Description
+                        </label>
+                        <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description_mission" name="description_mission" rows="4" placeholder="Job Description" required></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="date_fin_validite">
+                            Validity End Date
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="date_fin_validite" name="date_fin_validite" type="date" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="nombre_offres">
+                            Maximum Number of Offers
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="nombre_offres" name="nombre_offres" type="number" placeholder="Maximum Number of Offers" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="adresse">
+                            Address
+                        </label>
+                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="adresse" name="adresse" required>
+                            <% addresses.forEach(address => { %>
+                                <option value="<%= address.id_add %>"><%= address.num %> <%= address.rue %>, <%= address.ville %>, <%= address.pays %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="flex items-center justify-center">
+                        <button class="bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                            Add Job Description
+                        </button>
+                    </div>
+                </form>
+                <div class="flex items-center justify-center mt-4 mb-4">
+                    <a class="text-blue-500 hover:text-blue-700 font-bold" href="../job_ads">
+                        Back to Job Ads
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    <script>
+
+        document.getElementById('menu-button').addEventListener('click', function() {
+            document.getElementById('dropdown-menu').classList.toggle('active');
+        });
+
+        function validateForm() {
+            const salaireMin = document.getElementById('salaire_min').value;
+            const salaireMax = document.getElementById('salaire_max').value;
+
+            if (parseInt(salaireMin, 10) >= parseInt(salaireMax, 10)) {
+                alert('Minimum Salary must be less than Maximum Salary');
+                return false;
+            }
+
+            return true;
+        }
+
+    </script>
+</body>
+</html>

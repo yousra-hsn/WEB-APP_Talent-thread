@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a new account</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-white">
+
+    <!-- Header -->
+    <header class="w-full p-3 bg-gray-100 shadow-md">
+        <div class="container mx-auto flex items-center">
+            <a href="/">
+                <img src="/images/TalentThrive_logo.png" alt="Logo" class="h-10">
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="flex items-center justify-center my-4">
+        <div class="w-full max-w-xs">
+            <h1 class="text-3xl font-bold mb-4 text-center">Create a new account</h1>
+            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" id="registerForm" action="/register" method="POST">
+                <!-- Section 1 -->
+                <div class="mb-4">
+                    <h2 class="text-xl font-bold mb-4">Personal Information</h2>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="surname">
+                            Last name
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="surname" name="surname" type="text" placeholder="Salah">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                            Name
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" name="name" type="text" placeholder="Mohamed">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="tel">
+                            Phone number
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="tel" name="tel" type="tel" placeholder="0678912345">
+                    </div>
+                </div>
+                
+                <!-- Section 2 -->
+                <div class="mb-4">
+                    <h2 class="text-xl font-bold mb-4">Account Details</h2>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                            Email
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" name="email" type="email" placeholder="bonjour@myjob.fr">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                            Password
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" placeholder="******">
+                        <p id="passwordNote" class="text-gray-600 text-xs italic mt-2 hidden">Password must be at least 12 characters long, and include at least one uppercase letter, one lowercase letter, one number, and one special character.</p>
+                        <p id="passwordError" class="text-red-500 text-xs italic hidden">Your password must be at least 12 characters long and include uppercase letters, lowercase letters, numbers, and special characters.</p>
+                    </div>
+                </div>
+                                
+                <!-- Section 3 -->
+                <div class="mb-4">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="recruiter">
+                            Are you a recruiter?
+                        </label>
+                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="recruiter" name="recruiter">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4" id="siren-container" style="display: none;">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="siren">
+                            SIREN of your organization
+                        </label>
+                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="siren" name="siren">
+                            <% sirens.forEach(siren => { %>
+                                <option value="<%= siren.siren %>"><%= siren.siren %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-center">
+                    <button class="bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                        Register
+                    </button>
+                </div>
+            </form>
+            <div class="flex mt-4 text-center justify-center">
+                <p>Already registered?</p>
+                <a class="font-bold ml-2" href="/login">
+                    Log in
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    <script>
+        document.getElementById('recruiter').addEventListener('change', function() {
+            const sirenContainer = document.getElementById('siren-container');
+            if (this.value === 'yes') {
+                sirenContainer.style.display = 'block';
+            } else {
+                sirenContainer.style.display = 'none';
+            }
+        });
+
+        document.getElementById('password').addEventListener('focus', function() {
+            document.getElementById('passwordNote').classList.remove('hidden');
+        });
+
+        document.getElementById('password').addEventListener('blur', function() {
+            document.getElementById('passwordNote').classList.add('hidden');
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            const password = document.getElementById('password').value;
+            const passwordError = document.getElementById('passwordError');
+            
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=<>?{}|~:;]).{12,}$/;
+            
+            if (!passwordRegex.test(password)) {
+                passwordError.classList.remove('hidden');
+                event.preventDefault(); // Empêche l'envoi du formulaire
+            } else {
+                passwordError.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

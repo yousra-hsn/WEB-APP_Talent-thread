@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Style for dropdown menu */
+        .dropdown-menu {
+            display: none;
+            position: fixed;
+            top: 48px; /* Adjust based on header height */
+            left: 0;
+            width: 25%; /* Matches the width of Offre 1 (w-1/4) */
+            height: calc(100% - 60px); /* Take the full height minus header height */
+            color: white;
+            z-index: 10;
+            overflow-y: auto; /* Enable scrolling if content is too tall */
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-white relative">
+
+    <!-- Header -->
+    <header class="w-full p-3 bg-black shadow-md fixed top-0 left-0 right-0">
+        <div class="container mx-auto flex items-center justify-between">
+            <!-- Bouton de menu déroulant -->
+            <button id="menu-button" class="text-white focus:outline-none">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Dropdown menu -->
+    <div id="dropdown-menu" class="dropdown-menu p-4 bg-gray-900 border-t border-white"> 
+        <h2 class="text-xl font-bold mb-4">Menu</h2>
+        <!-- First section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"></path>
+                </svg>
+                <a href="../home" class="text-white">Home</a>
+            </div>
+        </div>
+
+        <!-- Second section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18v18H3z"></path>
+                </svg>
+                <a href="../job_ads" class="text-white">Job ads</a>
+            </div>
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 12h18M3 18h18"></path>
+                </svg>
+                <a href="./new" class="text-white">Add a job add</a>
+            </div>
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H8m0 0l4-4m-4 4l4 4"></path>
+                </svg>
+                <a href="../candidate/home" class="text-white">Candidate homepage</a>
+            </div>
+        </div>
+
+        <!-- Third section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                <a href="/logout" class="text-white">Log Out</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto mt-12 p-4">
+        <h1 class="text-2xl font-bold mb-4 text-center"><%= title %></h1>
+
+        <!-- Filter Buttons -->
+        <div class="flex justify-center space-x-4 mb-4">
+            <button onclick="location.href='./active_job_ads'" class="bg-green-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-green-700 focus:outline-none">
+                Active
+            </button>
+            <button onclick="location.href='./expired_job_ads'" class="bg-red-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-red-700 focus:outline-none">
+                Expired
+            </button>
+        </div>
+
+        <!-- Search Form -->
+        <form method="GET" action="/recruiter/job_ads/expired_job_ads" class="mb-4">
+            <input type="text" name="search" placeholder="Search..." value="<%= search %>" class="border p-2 rounded">
+            <button type="submit" class="bg-black text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 focus:outline-none">Search</button>
+        </form>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border-collapse border border-gray-300">
+                <thead>
+                    <tr>
+                        <th class="border px-4 py-2 bg-gray-100">Title</th>
+                        <th class="border px-4 py-2 bg-gray-100">Hours per week</th>
+                        <th class="border px-4 py-2 bg-gray-100">Telework days</th>
+                        <th class="border px-4 py-2 bg-gray-100">Salary Range (€)</th>
+                        <th class="border px-4 py-2 bg-gray-100">Job Description</th>
+                        <th class="border px-4 py-2 bg-gray-100">Availability</th>
+                        <th class="border px-4 py-2 bg-gray-100">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (offres.length === 0) { %>
+                        <tr>
+                            <td colspan="7" class="border px-4 py-2 text-center">No expired job ads found</td>
+                        </tr>
+                    <% } else { %>
+                        <% offres.forEach(function(offre) { %>
+                            <tr>
+                                <td class="border px-4 py-2"><%= offre.poste_nom %> (<%= offre.statut_de_poste %>)</td>
+                                <td class="border px-4 py-2"><%= offre.rythme_heures %></td>
+                                <td class="border px-4 py-2"><%= offre.teletravail_jours %></td>
+                                <td class="border px-4 py-2"><%= offre.salaire_min %>-<%= offre.salaire_max %></td>
+                                <td class="border px-4 py-2"><%= offre.description_mission %></td>
+                                <td class="border px-4 py-2"><%= offre.date_validite %></td>
+
+                                <td class="border px-4 py-2 text-center">
+                                    <div class="flex flex-col space-y-2">
+                                        <button id="applications-button" class="bg-black text-white py-2 px-4 rounded view-button" onclick="getApplications('<%= offre.id_offre %>')">Applications</button>
+                                        <button class="bg-black text-white py-2 px-4 rounded view-button" onclick="location.href='/recruiter/job_ads/edit/<%= offre.id_offre %>'">Edit</button>
+                                        <button id="delete-button-<%= offre.id_offre %>" class="bg-red-500 text-white py-2 px-4 rounded view-button" onclick="deleteOffer('<%= offre.id_offre %>')">Delete</button>
+                                    </div>
+                                </td> 
+                            </tr>
+                        <% }); %>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="mt-4 flex justify-center">
+            <% for (let i = 0; i < totalPages; i++) { %>
+                <a href="/recruiter/job_ads/expired_job_ads?limit=<%= limit %>&offset=<%= i * limit %>&search=<%= search %>" class="bg-black text-white px-4 py-2 <%= currentPage === i + 1 ? 'font-bold' : '' %>"><%= i + 1 %></a>
+            <% } %>
+        </div>
+    </main>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    <script>
+
+        document.getElementById('menu-button').addEventListener('click', function() {
+            document.getElementById('dropdown-menu').classList.toggle('active');
+        });
+
+        function getApplications(id_offre) {
+            window.location.href = `/recruiter/job_ads/applications/${id_offre}`;
+        }
+
+        function deleteOffer(id_offre) {
+            if (confirm('Are you sure you want to delete this job offer?')) {
+                fetch(`/recruiter/job_ads/delete/${id_offre}`, {
+                    method: 'POST'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        alert('Failed to delete the job offer.');
+                    }
+                });
+            }
+        }
+
+    </script>
+</body>
+</html>

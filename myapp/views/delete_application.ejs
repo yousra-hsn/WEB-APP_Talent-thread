@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Ads</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Style for dropdown menu */
+        .dropdown-menu {
+            display: none;
+            position: fixed;
+            top: 48px; /* Adjust based on header height */
+            left: 0;
+            width: 25%; /* Matches the width of Offre 1 (w-1/4) */
+            height: calc(100% - 60px); /* Take the full height minus header height */
+            color: white;
+            z-index: 10;
+            overflow-y: auto; /* Enable scrolling if content is too tall */
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-white relative">
+
+    <!-- Header -->
+    <header class="w-full p-3 bg-black shadow-md fixed top-0 left-0 right-0">
+        <div class="container mx-auto flex items-center justify-between">
+            <!-- Bouton de menu déroulant -->
+            <button id="menu-button" class="text-white focus:outline-none">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Dropdown menu -->
+    <div id="dropdown-menu" class="dropdown-menu p-4 bg-gray-900 border-t border-white"> 
+        <h2 class="text-xl font-bold mb-4">Menu</h2>
+        <!-- First section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"></path>
+                </svg>
+                <a href="#" class="text-white">Profile</a>
+            </div>
+        </div>
+
+        <!-- Second section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18v18H3z"></path>
+                </svg>
+                <a href="home" class="text-white">Dashboard</a>
+            </div>
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 12h18M3 18h18"></path>
+                </svg>
+                <a href="job_ads" class="text-white">Job Ads</a>
+            </div>
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H8m0 0l4-4m-4 4l4 4"></path>
+                </svg>
+                <a href="applications" class="text-white">My Applications</a>
+            </div>
+        </div>
+
+        <!-- Third section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                <a href="/logout" class="text-white">Log Out</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto mt-24 p-4">
+      <h1 class="text-2xl font-bold mb-4 text-center">Your application has been deleted successfully.</h1>
+      <div class="flex space-x-4 justify-center mb-4">
+        <a href="../home" class="bg-black text-white py-2 px-4 rounded">Home</a>
+    </div>
+
+    </main>
+
+    <!-- Recruiter Button  -->
+    <button onclick="location.href='http://localhost:3000/recruiter'" class="fixed bottom-4 right-4 bg-gray-800 text-white px-4 py-2 rounded-md shadow-md hover:bg-gray-700 focus:outline-none">
+      Are you recruiting?
+    </button>
+  
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    <script>
+        document.getElementById('menu-button').addEventListener('click', function() {
+            document.getElementById('dropdown-menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

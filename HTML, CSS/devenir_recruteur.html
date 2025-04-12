@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devenez recruteur</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="navbar">
+    <div class="menu-icon">
+      <!-- Icone de menu (hamburger icon) -->
+      <span>☰</span>
+    </div>
+    <div class="search-bar">
+      <input type="search" placeholder="Search">
+      <button type="submit">🔍</button>
+    </div>
+    <div class="account-icon">
+      <!-- Icone du compte utilisateur -->
+      <span>👤</span>
+    </div>
+  </div>
+
+<div class="container">
+  <h1>Devenez recruteur !</h1>
+  <form action="/submit-recruiter-form" method="POST">
+    <div class="form-group">
+      <label for="organisation">ORGANISATION</label>
+      <select id="organisation" name="organisation" required>
+        <option value="">Sélectionnez</option>
+        <!-- Les options seront ajoutées ici -->
+      </select>
+    </div>
+    
+    <button type="submit" class="button">Soumettre</button>
+  </form>
+  
+  <p>Votre demande sera soumise à l'administrateur afin d'être évaluée</p>
+  <p>Délai de réponse : 5 jours ouvrés</p>
+</div>
+
+</body>
+</html>

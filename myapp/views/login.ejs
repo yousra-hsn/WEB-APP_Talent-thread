@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-white">
+
+    <!-- Header -->
+    <header class="w-full p-3 bg-gray-100 shadow-md">
+        <div class="container mx-auto flex items-center">
+            <a href="/">
+                <img src="/images/TalentThrive_logo.png" alt="Logo" class="h-10">
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="flex items-center justify-center h-screen mt-2">
+        <div class="w-full max-w-xs mt-16">
+            <h1 class="text-3xl font-bold mb-4 text-center">Sign In</h1>
+            <p class="text-lg mb-8 text-center">Log in to continue</p>
+            <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" id="loginAuthentication" action="/login" method="post">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                       Email
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" name="email" type="email" placeholder="bonjour@myjob.fr" required>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                        Password
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" placeholder="******" required>
+                </div>
+                <div class="mb-4">
+                    <div id="captchaImg" class="mb-2"></div>
+                    <button type="button" class="text-blue-500 hover:text-blue-700" onclick="refreshCaptcha()">Refresh CAPTCHA</button>
+                    <label class="block text-gray-700 text-sm font-bold mt-2" for="captcha">
+                        Enter CAPTCHA
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="captcha" name="captcha" type="text" placeholder="Enter CAPTCHA" required>
+                </div>
+                <div class="flex items-center justify-center">
+                    <button class="bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                        Log in
+                    </button>
+                </div>
+            </form>
+            <!-- <div class="text-center">
+                <a class="inline-block align-baseline font-bold text-sm text-gray-500 hover:text-gray-800" href="/forgotten_pwd">
+                    Forgot your password?
+                </a>
+            </div> -->
+        </div>
+    </div>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    <script>
+        function refreshCaptcha() {
+        fetch('/captcha')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('captchaImg').innerHTML = data;
+            });
+        }
+
+        // Initial call to load the CAPTCHA when the page loads
+        window.onload = refreshCaptcha;
+    </script>
+</body>
+</html>

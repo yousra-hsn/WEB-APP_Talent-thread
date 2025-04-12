@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizations</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Style for dropdown menu */
+        .dropdown-menu {
+            display: none;
+            position: fixed;
+            top: 48px; /* Adjust based on header height */
+            left: 0;
+            width: 25%; /* Matches the width of Offre 1 (w-1/4) */
+            height: calc(100% - 60px); /* Take the full height minus header height */
+            color: white;
+            z-index: 10;
+            overflow-y: auto; /* Enable scrolling if content is too tall */
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+    </style> 
+</head>
+<body class="bg-white relative">
+
+    <!-- Header -->
+    <header class="w-full p-3 bg-black shadow-md fixed top-0 left-0 right-0">
+        <div class="container mx-auto flex items-center justify-between">
+            <!-- Bouton de menu déroulant -->
+            <button id="menu-button" class="text-white focus:outline-none">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Dropdown menu -->
+    <div id="dropdown-menu" class="dropdown-menu p-4 bg-gray-900 border-t border-white"> 
+        <h2 class="text-xl font-bold mb-4">Menu</h2>
+        <!-- First section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"></path>
+                </svg>
+                <a href="../home" class="text-white">Home</a>
+            </div>
+        </div>
+
+        <!-- Second section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18v18H3z"></path>
+                </svg>
+                <a href="../mng_users" class="text-white">Users</a>
+            </div>
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 12h18M3 18h18"></path>
+                </svg>
+                <a href="../mng_org" class="text-white">Organizations</a>
+            </div>
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H8m0 0l4-4m-4 4l4 4"></path>
+                </svg>
+                <a href="../mng_recruiters" class="text-white">Recruiters</a>
+            </div>
+        </div>
+
+        <!-- Third section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                <a href="/logout" class="text-white">Log Out</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="container mx-auto mt-20 p-4">
+        <h1 class="text-2xl font-bold mb-4 text-center">Refused Requests</h1>
+        
+        <!-- Barre de recherche -->
+        <div class="flex items-center space-x-4">
+            <input type="text" id="search-input" class="px-3 py-2 rounded-md text-black border border-black" placeholder="Search...">
+            <button id="search-button" class="bg-black text-white py-2 px-4 rounded">Search</button>
+            <!-- Pictogramme d'utilisateur -->
+            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A7.968 7.968 0 0112 15c2.131 0 4.09.84 5.879 2.804M15 12a3 3 0 11-6 0 3 3 0 016 0zM12 20c-5.523 0-10-4.477-10-10S6.477 0 12 0s10 4.477 10 10-4.477 10-10 10z"></path>
+            </svg>
+        </div>
+
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white border-collapse border border-gray-300 mt-2">
+                <thead>
+                    <tr>
+                      <th class="border px-4 py-2 bg-gray-100">Name</th>
+                      <th class="border px-4 py-2 bg-gray-100">SIREN</th>
+                      <th class="border px-4 py-2 bg-gray-100">Type</th>
+                      <th class="border px-4 py-2 bg-gray-100">Address</th>
+                      <th class="border px-4 py-2 bg-gray-100">Processing Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% demandes.forEach(function(demande) { %>
+                        <tr>
+                            <td class="border px-4 py-2"><%= demande.nom %></td>
+                            <td class="border px-4 py-2"><%= demande.siren %></td>
+                            <td class="border px-4 py-2"><%= demande.type %></td>
+                            <td class="border px-4 py-2"><%= demande.num_ad %> <%= demande.rue_ad %> <%= demande.ville_ad %>, <%= demande.pays_ad %></td>
+                            <td class="border px-4 py-2 text-center"><%= demande.traitement %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="mt-4 flex justify-center">
+            <% if (currentPage > 1) { %>
+                <a href="?page=<%= currentPage - 1 %>&limit=<%= limit %>" class="bg-black text-white py-2 px-4 rounded">Previous</a>
+            <% } %>
+            <% for (var i = 1; i <= totalPages; i++) { %>
+                <a href="?page=<%= i %>&limit=<%= limit %>" class="bg-black text-white py-2 px-4 rounded mx-1 <%= i === currentPage ? 'font-bold' : '' %>"><%= i %></a>
+            <% } %>
+            <% if (currentPage < totalPages) { %>
+                <a href="?page=<%= currentPage + 1 %>&limit=<%= limit %>" class="bg-black text-white py-2 px-4 rounded">Next</a>
+            <% } %>
+        </div>
+    </main>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    <script>
+        document.getElementById('menu-button').addEventListener('click', function() {
+            document.getElementById('dropdown-menu').classList.toggle('active');
+        });
+
+        function highlightMatches() {
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+            const tableCells = document.querySelectorAll('td'); // Sélectionne toutes les cellules du tableau
+
+            tableCells.forEach(cell => {
+                cell.classList.remove('highlight'); // Supprime le surlignage précédent
+
+                if (cell.textContent.toLowerCase().includes(searchInput) && searchInput !== '') {
+                    cell.classList.add('highlight'); // Ajoute le surlignage aux cellules correspondantes
+                }
+            });
+        }
+
+        document.getElementById('search-button').addEventListener('click', highlightMatches);
+
+        document.getElementById('search-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                highlightMatches();
+            }
+        });
+    </script>
+</body>
+</html>

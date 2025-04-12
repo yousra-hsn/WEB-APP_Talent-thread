@@ -1,0 +1,313 @@
+/* Reset CSS pour assurer la cohérence entre les navigateurs */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+}
+
+
+.recruteur {
+    text-align: center;
+  }
+  
+  /* Assurez-vous que le conteneur des cartes utilise Flexbox pour aligner les enfants horizontalement */
+  .card-container {
+    display: flex;
+    justify-content: space-around; /* Cela répartira l'espace uniformément autour des éléments */
+    flex-wrap: wrap; /* Cela permettra aux cartes de passer à la ligne suivante sur les petits écrans */
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column; /* Organiser le contenu de la carte verticalement */
+    align-items: center; /* Centrer les éléments horizontalement */
+    margin: 10px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: calc(50% - 20px); /* Vous devrez peut-être ajuster cela en fonction de votre design */
+  }
+  
+  .card img {
+    width: 100px; /* Ajustez selon la taille de vos icônes */
+    margin-bottom: 10px;
+  }
+  
+  .card h2 {
+    font-size: 1.5em;
+    color: #333;
+  }
+  
+  .card ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .card ul li {
+    text-align: center;
+    line-height: 2em;
+  }
+  
+  /* Style pour le bouton 'Espace candidat' en bas de page */
+  .switch-role {
+    display: block;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  
+  .switch-role:hover {
+    background-color: #555;
+  }
+  
+  
+
+/* Styles pour le menu latéral */
+.sidebar {
+    position: fixed;
+    left: -100%; /* Commence hors de l'écran */
+    top: 0;
+    width: 250px; /* ou la largeur que vous souhaitez */
+    height: 100%;
+    background: #333; /* ou la couleur de votre choix */
+    z-index: 1500; /* S'assurer qu'il est au-dessus du reste */
+    transition: left 0.3s; /* Animation douce pour l'apparition */
+  }
+  
+  .sidebar.active {
+    left: 0; /* Déplace le menu sur l'écran quand 'active' est ajouté */
+  }
+  
+  .sidebar .close-icon {
+    text-align: right;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #444; /* Pour séparer visuellement le bouton de fermeture */
+  }
+  
+  .sidebar .menu-section {
+    padding: 10px;
+    border-bottom: 1px solid #444; /* Pour séparer visuellement les sections */
+  }
+  
+  .sidebar .menu-section h3 {
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  
+  .sidebar a {
+    color: #ddd;
+    display: block;
+    padding: 5px 10px;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .sidebar a:hover {
+    color: #fff;
+  }
+  
+
+/* Style de la barre de navigation */
+.navbar {
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    height: 50px; /* Définissez la hauteur de la barre de navigation ici */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+/* Assurez-vous que le chemin vers l'image du logo est correct */
+.logo img {
+    height: 40px; /* Ajustez selon la taille réelle de votre logo */
+}
+
+.menu-icon {
+    display: flex; /* Ceci fera apparaître le menu hamburger */
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    cursor: pointer;
+}
+
+/* Icône de recherche et de compte utilisateur */
+.search-bar, .account-icon {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.search-bar input[type="search"] {
+    padding: 5px;
+    margin-right: 5px;
+    border: none;
+}
+
+.search-bar button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* Icône du compte utilisateur */
+.account-icon img {
+    height: 24px; /* Ajustez selon la taille réelle de votre icône */
+}
+
+  /* Style pour le lien 'Devenez recruteur' */
+  .become-recruiter {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  .become-recruiter a {
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+    text-decoration: none;
+  }
+  
+
+/* Ajoutez du padding en haut du body pour ne pas superposer le contenu à la navbar */
+body {
+    padding-top: 60px;
+}
+
+/* Contenu principal */
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+  
+  h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+  }
+  
+  .button-container {
+    margin: 20px 0;
+  }
+  
+  .button, button {
+    padding: 10px 20px;
+    margin: 5px;
+    color: #fff;
+    background-color: #222; /* Noir plus prononcé pour les boutons */
+    text-decoration: none;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover, button:hover {
+    background-color: #000;
+  }
+
+  /* Styles pour le formulaire */
+.form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input[type="text"],
+  .form-group select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .button {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .button:hover {
+    background-color: #333;
+  }
+  
+  /* Texte informatif sous le formulaire */
+  .container p {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+  }
+  
+  /* Styles des inputs */
+  input[type="email"],
+  input[type="password"],
+  input[type="text"],
+  input[type="date"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+  }
+  
+  /* Ajout de responsivité pour les petits écrans */
+  @media (max-width: 768px) {
+    .container {
+      width: 90%;
+      margin: 20px auto;
+    }
+  
+    .button, input[type="email"], input[type="password"], input[type="text"], input[type="date"], button {
+      width: 100%;
+    }
+
+    .card {
+        /* Sur des écrans plus petits, chaque carte prend toute la largeur */
+        width: 100%;
+      }
+  }
+  

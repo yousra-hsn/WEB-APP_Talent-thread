@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access denied</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-white">
+
+    <!-- Header -->
+    <header class="w-full p-3 bg-gray-100 shadow-md">
+        <div class="container mx-auto flex items-center">
+            <a href="/">
+                <img src="/images/TalentThrive_logo.png" alt="Logo" class="h-10">
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto mt-20 p-4">
+        <h1 class="text-2xl font-bold mb-4 text-center">Access denied</h1>
+        <p class="text-2xl mb-4 text-center"><%= message %></p>
+        <div class="flex space-x-4 justify-center mb-4 mt-24">
+            <!-- redirection vers la page de login -->
+            <a href="/login" class="bg-black text-white py-2 px-4 rounded">Login</a>
+        </div>
+    </main>
+    <script>
+        document.getElementById('backButton').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = document.referrer;
+        });
+    </script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+</body>
+</html>

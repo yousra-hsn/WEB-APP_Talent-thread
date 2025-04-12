@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Ads</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Style for dropdown menu */
+        .dropdown-menu {
+            display: none;
+            position: fixed;
+            top: 48px; /* Adjust based on header height */
+            left: 0;
+            width: 25%; /* Matches the width of Offre 1 (w-1/4) */
+            height: calc(100% - 60px); /* Take the full height minus header height */
+            color: white;
+            z-index: 10;
+            overflow-y: auto; /* Enable scrolling if content is too tall */
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-white relative">
+
+    <!-- Header -->
+    <header class="w-full p-3 bg-black shadow-md fixed top-0 left-0 right-0">
+        <div class="container mx-auto flex items-center justify-between">
+            <!-- Bouton de menu déroulant -->
+            <button id="menu-button" class="text-white focus:outline-none">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Dropdown menu -->
+    <div id="dropdown-menu" class="dropdown-menu p-4 bg-gray-900 border-t border-white"> 
+        <h2 class="text-xl font-bold mb-4">Menu</h2>
+        <!-- First section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"></path>
+                </svg>
+                <a href="../../home" class="text-white">Home</a>
+            </div>
+        </div>
+
+        <!-- Second section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18v18H3z"></path>
+                </svg>
+                <a href="../../job_ads" class="text-white">Job ads</a>
+            </div>
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 12h18M3 18h18"></path>
+                </svg>
+                <a href="../new" class="text-white">Add a job add</a>
+            </div>
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H8m0 0l4-4m-4 4l4 4"></path>
+                </svg>
+                <a href="../../../candidate/home" class="text-white">Candidate homepage</a>
+            </div>
+        </div>
+
+        <!-- Third section of links -->
+        <div class="mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                <a href="/logout" class="text-white">Log Out</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <main class="container mx-auto mt-20 p-4">
+        <h1 class="text-2xl font-bold mb-4 text-center"><%= title %></h1>
+        <div class="overflow-x-auto">
+            <% if (candidatures.length === 0) { %>
+                <p class="text-center text-gray-600">There are no applications for this job yet.</p>
+            <% } else { %>
+                <table class="min-w-full bg-white border-collapse border border-gray-300 mt-8">
+                    <thead>
+                        <tr>
+                            <th class="border px-4 py-2 bg-gray-100">Nom</th>
+                            <th class="border px-4 py-2 bg-gray-100">Prénom</th>
+                            <th class="border px-4 py-2 bg-gray-100">Email</th>
+                            <th class="border px-4 py-2 bg-gray-100">Téléphone</th>
+                            <th class="border px-4 py-2 bg-gray-100">Date de candidature</th>
+                            <th class="border px-4 py-2 bg-gray-100">Pièces jointes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% candidatures.forEach(function(candidature) { %>
+                            <tr>
+                                <td class="border px-4 py-2"><%= candidature.nom %></td>
+                                <td class="border px-4 py-2"><%= candidature.prenom %></td>
+                                <td class="border px-4 py-2"><%= candidature.adresse_mail %></td>
+                                <td class="border px-4 py-2"><%= candidature.tel %></td>
+                                <td class="border px-4 py-2"><%= candidature.date_candidature %></td>
+                                <td class="border px-4 py-2">
+                                    <% if (candidature.paths.length === 0) { %>
+                                        <p class="text-gray-600">Aucune pièce jointe</p>
+                                    <% } else { %>
+                                        <ul>
+                                            <% candidature.paths.forEach(function(file) { %>
+                                                <li><a href="/uploads/<%= id_offre %>/<%= file.fileName %>" target="_blank" class="text-blue-500">Open PDF file</a></li>
+                                            <% }); %>
+                                        </ul>
+                                    <% } %>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } %>
+        </div>
+    </main>
+  
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    <script>
+        document.getElementById('menu-button').addEventListener('click', function() {
+            document.getElementById('dropdown-menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

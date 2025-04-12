@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Style for dropdown menu */
+        .dropdown-menu {
+            display: none;
+            position: fixed;
+            top: 48px; /* Adjust based on header height */
+            left: 0;
+            width: 25%; /* Matches the width of Offre 1 (w-1/4) */
+            height: calc(100% - 60px); /* Take the full height minus header height */
+            color: white;
+            z-index: 10;
+            overflow-y: auto; /* Enable scrolling if content is too tall */
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-white relative">
+
+    <!-- Header -->
+    <header class="w-full p-3 bg-gray-100 shadow-md">
+        <div class="container mx-auto flex items-center">
+            <a href="../home">
+                <img src="/images/TalentThrive_logo.png" alt="Logo" class="h-10">
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="flex items-center justify-center my-4 mt-10">
+            <div class="w-full max-w-xs">
+                <h1 class="text-3xl font-bold mb-4 text-center">Update</h1>
+                <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" id="updateForm" action="./update_users/" method="POST">
+                    <input type="hidden" name="id" value="<%= user.id_user %>">
+
+                    <!-- Section 1 -->
+                    <div class="mb-4">
+                        <h2 class="text-xl font-bold mb-4">Personal Information</h2>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="surname">
+                                Last name
+                            </label>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="surname" name="surname" type="text" placeholder="<%= user.nom %>">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                                Name
+                            </label>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" name="name" type="text" placeholder="<%= user.prenom %>">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="tel">
+                                Phone number
+                            </label>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="tel" name="tel" type="tel" placeholder="<%= user.tel %>">
+                        </div>
+                    </div>
+                                    
+                    <!-- Section 3 -->
+                    <div class="mb-4">
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="recruiter">
+                                Is she/he a recruiter?
+                            </label>
+                            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="recruiter" name="recruiter">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+    
+                        <div class="mb-4" id="siren-container" style="display: none;">
+                            <label class="block text-gray-700 text-sm font-bold mb-2" for="siren">
+                                SIREN of the organization
+                            </label>
+                            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="siren" name="siren">
+                                <% sirens.forEach(siren => { %>
+                                    <option value="<%= siren.siren %>" <%= user.siren === siren.siren ? 'selected' : '' %>><%= siren.siren %></option>
+                                <% }); %>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-center">
+                        <button class="bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                            Update
+                        </button>
+                    </div>
+                </form>
+            </div>
+    </div>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    <script>
+        document.getElementById('recruiter').addEventListener('change', function() {
+            const sirenContainer = document.getElementById('siren-container');
+            if (this.value === 'yes') {
+                sirenContainer.style.display = 'block';
+            } else {
+                sirenContainer.style.display = 'none';
+            }
+        });
+
+        document.getElementById('siren-filter').addEventListener('input', function() {
+            const filter = this.value.toLowerCase();
+            const options = document.getElementById('siren').options;
+            for (let i = 0; i < options.length; i++) {
+                const option = options[i];
+                if (option.text.toLowerCase().includes(filter)) {
+                    option.style.display = '';
+                } else {
+                    option.style.display = 'none';
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

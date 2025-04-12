@@ -1,0 +1,16 @@
+/* Style for dropdown menu */
+.dropdown-menu {
+  display: none;
+  position: fixed;
+  top: 64px; /* Adjust based on header height */
+  left: 0;
+  width: 25%; /* Matches the width of Offre 1 (w-1/4) */
+  height: calc(100% - 60px); /* Take the full height minus header height */
+  /* background-color: black; */
+  color: white;
+  z-index: 10;
+  overflow-y: auto; /* Enable scrolling if content is too tall */
+}
+.dropdown-menu.active {
+  display: block;
+}
